@@ -2,13 +2,11 @@ package task
 
 import (
 	"fmt"
+	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
 	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
+	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"net/http"
-	"time"
-
-	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
-	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 
 	"github.com/niuniumart/gosdk/martlog"
 
@@ -27,6 +25,7 @@ type HoldTasksHandler struct {
 
 // HoldTasks 接口
 func HoldTasks(c *gin.Context) {
+
 	var hd HoldTasksHandler
 	defer func() {
 		hd.Resp.Msg = constant.GetErrMsg(hd.Resp.Code)
@@ -64,8 +63,7 @@ func (p *HoldTasksHandler) HandleProcess() error {
 	if limit == 0 {
 		limit = constant.DEFAULT_TASK_LIST_LIMIT
 	}
-	taskTableName := db.GetTaskTableName(p.Req.TaskType)
-	taskPos, err := db.TaskPosNsp.GetTaskPos(db.DB, taskTableName)
+	taskPos, err := db.TaskPosNsp.GetTaskPos(db.DB, p.Req.TaskType)
 	if err != nil {
 		martlog.Errorf("db.TaskPosNsp.GetRandomSchedulePos %s", err.Error())
 		p.Resp.Code = constant.ERR_GET_TASK_SET_POS_FROM_DB
@@ -80,28 +78,21 @@ func (p *HoldTasksHandler) HandleProcess() error {
 	}
 	taskIdList := make([]string, 0)
 	for _, dbTask := range taskList {
-		if dbTask.CrtRetryNum != 0 && dbTask.MaxRetryInterval != 0 &&
-			dbTask.OrderTime > time.Now().Unix() {
-			continue
-		}
+		// 需要更新状态的任务
 		taskIdList = append(taskIdList, dbTask.TaskId)
+
+		var task = &model.TaskData{}
+		ctrlmodel.FillTaskResp(dbTask, task)
+		p.Resp.TaskList = append(p.Resp.TaskList, task)
 	}
+
+	// 更新任务状态
 	if len(taskIdList) != 0 {
 		err = db.TaskNsp.BatchSetStatus(db.DB, taskIdList, db.TASK_STATUS_PROCESSING)
 		if err != nil {
 			martlog.Errorf("BatchSetStatus err %s", err.Error())
 			return err
 		}
-	}
-	for _, dbTask := range taskList {
-		// 是重试任务，并且存在重试间隔，且还没到就排序时间，这种就过滤掉
-		if dbTask.CrtRetryNum != 0 && dbTask.MaxRetryInterval != 0 &&
-			dbTask.OrderTime > time.Now().Unix() {
-			continue
-		}
-		var task = &model.TaskData{}
-		ctrlmodel.FillTaskResp(dbTask, task)
-		p.Resp.TaskList = append(p.Resp.TaskList, task)
 	}
 
 	return nil

@@ -4,12 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/niuniumart/asyncflow/taskutils/constant"
-	"github.com/niuniumart/asyncflow/worker/src/initialise"
+	"github.com/niuniumart/asyncflow/worker/src/config"
 	"github.com/niuniumart/asyncflow/worker/src/tasksdk"
 	"github.com/niuniumart/gosdk/martlog"
 	"github.com/niuniumart/gosdk/response"
-	"github.com/niuniumart/gosdk/tools"
 )
+
+// 初始化
+func init() {
+	config.Init()
+	// 初始化分布式锁连接，还有定下flowsvr的地址
+	tasksdk.InitSvr(config.Conf.FlowsvrAddr, config.Conf.RedisLockAddr, config.Conf.RedisLockPassword)
+}
 
 func main() {
 	larkTask := tasksdk.TaskHandler{
@@ -17,8 +23,6 @@ func main() {
 		NewProc:  func() tasksdk.TaskIntf { return new(LarkTask) },
 	}
 	tasksdk.RegisterHandler(&larkTask)
-	initialise.InitResource()
-	tasksdk.InitSvr("http://127.0.0.1:41555", "")
 	var taskMgr = tasksdk.TaskMgr{
 		TaskType: "lark",
 	}
@@ -37,7 +41,7 @@ type LarkTask struct {
 	ContextData *LarkTaskContext
 }
 
-// LartTaskContext 任务的上下文
+// LarkTaskContext 任务的上下文
 type LarkTaskContext struct {
 	ReqBody *LarkReq
 	UserId  string
@@ -59,17 +63,16 @@ func (p *LarkTask) ContextLoad() error {
 
 // HandleProcess 处理函数
 func (p *LarkTask) HandleProcess() error {
-	fmt.Println("task ", tools.GetFmtStr(*p))
 	switch p.TaskStage {
 	case "sendmsg":
 		p.TaskStage = "record"
 		p.SetContextLocal(p.ContextData)
 		fallthrough
 	case "record":
-		fmt.Println("come here")
 		p.TaskStage = "record"
+		// 模拟出现错误
 		p.Base().Status = int(constant.TASK_STATUS_SUCC)
-
+		fmt.Printf("处理 task完成: %v\n", p.TaskId)
 	default:
 		p.Base().Status = int(constant.TASK_STATUS_FAILED)
 	}

@@ -2,7 +2,6 @@ package task
 
 import (
 	"fmt"
-	"github.com/niuniumart/asyncflow/flowsvr/src/config"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"testing"
 
@@ -14,8 +13,6 @@ import (
 )
 
 func TestCreateTask(t *testing.T) {
-	config.TestFilePath = "../../../config/config-test.toml"
-	config.Init()
 	db.InitDB()
 	convey.Convey("TestCreateTask", t, func() {
 		// case 1: input err

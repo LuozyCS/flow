@@ -58,6 +58,7 @@ func fillDbScheduleCfgIntoCtrl(cfg *model.TaskScheduleCfg, dbCfg *db.TaskSchedul
 	cfg.ScheduleInterval = dbCfg.ScheduleInterval
 	cfg.MaxProcessingTime = dbCfg.MaxProcessingTime
 	cfg.MaxRetryNum = dbCfg.MaxRetryNum
+	cfg.RetryInterval = dbCfg.RetryInterval
 	cfg.MaxRetryInterval = dbCfg.MaxRetryInterval
 	cfg.CreateTime = dbCfg.CreateTime
 	cfg.ModifyTime = dbCfg.ModifyTime

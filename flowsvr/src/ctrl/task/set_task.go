@@ -1,15 +1,13 @@
 package task
 
 import (
-	"errors"
-	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
-	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
-	"net/http"
-	"time"
-
+	"github.com/niuniumart/asyncflow/flowsvr/src/cache"
 	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
+	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
 	"github.com/niuniumart/asyncflow/flowsvr/src/db"
+	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"github.com/niuniumart/gosdk/tools"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/niuniumart/gosdk/handler"
@@ -42,12 +40,10 @@ func SetTask(c *gin.Context) {
 
 // HandleInput 参数检查
 func (p *SetTaskHandler) HandleInput() error {
-	if p.Req.TaskId == "" {
+	if p.Req.TaskData.TaskId == "" {
 		martlog.Errorf("input invalid")
 		p.Resp.Code = constant.ERR_INPUT_INVALID
 		return constant.ERR_HANDLE_INPUT
-	} else {
-		p.Req.TaskData.TaskId = p.Req.TaskId
 	}
 
 	if p.Req.TaskData.Priority != nil {
@@ -62,18 +58,7 @@ func (p *SetTaskHandler) HandleInput() error {
 // HandleProcess 处理函数
 func (p *SetTaskHandler) HandleProcess() error {
 	var err error
-	var Task *db.Task
-	Task, err = db.TaskNsp.Find(db.DB, p.Req.TaskId)
-	if err != nil {
-		martlog.Errorf("db.TaskPosNsp.Find Task Err %s", err.Error())
-		p.Resp.Code = constant.ERR_GET_TASK_INFO
-		return err
-	}
-	if Task == nil {
-		martlog.Errorf("db.TaskPosNsp.Find Task failed. TaskId:%s", p.Req.TaskId)
-		p.Resp.Code = constant.ERR_GET_TASK_INFO
-		return errors.New("db.TaskPosNsp.Find Task failed. TaskId:" + p.Req.TaskId)
-	}
+	var Task = &db.Task{}
 	err = ctrlmodel.FillTaskModel(&p.Req.TaskData, Task, "")
 	if err != nil {
 		martlog.Errorf("FillTaskModel Err %s. TaskData:%s.Task:%s.", err.Error(),
@@ -81,20 +66,15 @@ func (p *SetTaskHandler) HandleProcess() error {
 		p.Resp.Code = constant.ERR_SET_TASK
 		return err
 	}
-	// 填充内容
-	if p.Req.TaskData.OrderTime == 0 {
-		Task.OrderTime = time.Now().Unix()
-		if p.Req.TaskData.Priority != nil {
-			Task.OrderTime -= int64(*p.Req.TaskData.Priority)
-		} else {
-			Task.OrderTime -= int64(Task.Priority)
-		}
-	}
 	err = Task.UpdateTask(db.DB)
 	if err != nil {
 		martlog.Errorf("UpdateTask err %s.Task :%.", err.Error(), tools.GetFmtStr(Task))
 		p.Resp.Code = constant.ERR_SET_TASK
 		return err
 	}
+
+	p.Resp.Code = constant.SUCCESS
+	// 更新成功，删一下缓存
+	cache.OnceDeleteTask(Task.TaskId)
 	return nil
 }

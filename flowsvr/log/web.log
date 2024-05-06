@@ -1,0 +1,167 @@
+2023-12-13 14:38:10.225::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:38:10.225::::::INFO:::<nil>:::15:::rtm.go.96 rtm.(*TaskRuntime).subTable:::subTable process
+2023-12-13 14:38:10.225::::::INFO:::<nil>:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:38:20.238::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:20.238::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:20.251::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 12.6802ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:38:20.28::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 28.9781ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:38:20.306::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 68.0204ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:38:20.306::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 25.8592ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449500] 0] sql ""
+2023-12-13 14:38:20.306::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:38:20.333::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 27.5099ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:38:20.346::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 11.5789ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:38:20.346::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:38:30.308::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:30.321::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 13.5743ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:38:30.355::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:30.357::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 36.0491ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:38:30.366::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 11.1183ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:38:30.385::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 27.4484ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449510] 0] sql ""
+2023-12-13 14:38:30.385::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:38:30.389::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 23.258ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:38:30.409::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 19.1538ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:38:30.409::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:38:40.229::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.103 rtm.(*TaskRuntime).subTable:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:40.241::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 12.0044ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:38:40.255::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 13.6579ms SELECT count(*) FROM `t_lark_task_5`   [] 0] sql ""
+2023-12-13 14:38:40.255::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.96 rtm.(*TaskRuntime).subTable:::subTable process
+2023-12-13 14:38:40.385::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:40.398::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 12.9828ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:38:40.412::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:40.423::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 11.2316ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:38:40.424::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 25.8046ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:38:40.455::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 32.5449ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:38:40.455::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 31.5891ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449520] 0] sql ""
+2023-12-13 14:38:40.455::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:38:40.466::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 11.0232ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:38:40.466::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:38:50.467::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:50.482::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:38:50.486::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 19.4688ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:38:50.494::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 12.1847ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:38:50.515::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 28.4595ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:38:50.521::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 26.7502ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:38:50.539::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 17.0951ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:38:50.539::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:38:50.544::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 29.5294ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449530] 0] sql ""
+2023-12-13 14:38:50.544::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:39:00.539::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:00.551::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 11.7883ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:00.551::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:00.564::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 12.5765ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:39:00.581::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 30.1201ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:39:00.592::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 10.3228ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:39:00.592::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 28.0719ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:00.592::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:39:00.647::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 54.6964ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449540] 0] sql ""
+2023-12-13 14:39:00.647::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:39:10.264::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.103 rtm.(*TaskRuntime).subTable:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:10.276::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 11.7567ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:10.288::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 12.001ms SELECT count(*) FROM `t_lark_task_5`   [] 0] sql ""
+2023-12-13 14:39:10.288::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.96 rtm.(*TaskRuntime).subTable:::subTable process
+2023-12-13 14:39:10.605::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:10.621::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 15.5977ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:10.651::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 30.2261ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:39:10.651::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:10.664::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 12.9323ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:39:10.664::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:39:10.664::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 12.8436ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:39:10.689::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 23.9995ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:10.717::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 27.8562ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449550] 0] sql ""
+2023-12-13 14:39:10.717::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:39:19.401::::::INFO:::da39f91a-4b5d-4e5c-a1a0-ce7111ed0fb0:::68:::logprint.go.89 logprint.InfoLog.func1:::Req Url: POST /create_task,[Body]:{
+    "taskData": {
+        "userId": "niuniu",
+        "taskId": "",
+        "taskType": "lark",
+        "taskStage": "sendmsg",
+        "status": 1,
+        "crtRetryNum": 0,
+        "maxRetryNum": 0,
+        "maxRetryInterval": 0,
+        "scheduleLog": "",
+        "context": "{\"ReqBody\":{\"Msg\":\"nice to meet u\",\"FromAddr\":\"fish\",\"ToAddr\":\"cat\"},\"UserId\":\"\"}",
+        "orderTime": 0,
+        "createTime": null,
+        "modifyTime": null
+    }
+}; [Header]:{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["485"],"Content-Type":["application/json"],"User-Agent":["PostmanRuntime-ApipostRuntime/1.1.0"]}
+2023-12-13 14:39:19.401::::::INFO:::da39f91a-4b5d-4e5c-a1a0-ce7111ed0fb0:::68:::logprint.go.112 logprint.InfoLog.func1:::Url: /create_task, cost 942.3µs Resp Body 
+2023-12-13 14:39:19.401::::::INFO:::da39f91a-4b5d-4e5c-a1a0-ce7111ed0fb0:::68:::logprint.go.116 logprint.InfoLog.func1:::ReqPath[/create_task]-Duration[0.0009423]
+2023-12-13 14:39:20.434::::::INFO:::5f2fc3a9-4607-4538-9c39-c309907e7303:::98:::logprint.go.89 logprint.InfoLog.func1:::Req Url: POST /create_task,[Body]:{
+    "taskData": {
+        "userId": "niuniu",
+        "taskId": "",
+        "taskType": "lark",
+        "taskStage": "sendmsg",
+        "status": 1,
+        "crtRetryNum": 0,
+        "maxRetryNum": 0,
+        "maxRetryInterval": 0,
+        "scheduleLog": "",
+        "context": "{\"ReqBody\":{\"Msg\":\"nice to meet u\",\"FromAddr\":\"fish\",\"ToAddr\":\"cat\"},\"UserId\":\"\"}",
+        "orderTime": 0,
+        "createTime": null,
+        "modifyTime": null
+    }
+}; [Header]:{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["485"],"Content-Type":["application/json"],"User-Agent":["PostmanRuntime-ApipostRuntime/1.1.0"]}
+2023-12-13 14:39:20.434::::::INFO:::5f2fc3a9-4607-4538-9c39-c309907e7303:::98:::logprint.go.112 logprint.InfoLog.func1:::Url: /create_task, cost 0s Resp Body 
+2023-12-13 14:39:20.434::::::INFO:::5f2fc3a9-4607-4538-9c39-c309907e7303:::98:::logprint.go.116 logprint.InfoLog.func1:::ReqPath[/create_task]-Duration[0]
+2023-12-13 14:39:20.673::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:20.685::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 12.0279ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:20.71::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 25.0404ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:39:20.72::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:20.722::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 10.5731ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:39:20.722::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:39:20.733::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 12.6666ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:39:20.759::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 26.6089ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:20.815::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 55.7893ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449560] 0] sql ""
+2023-12-13 14:39:20.815::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:39:30.732::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:30.747::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 14.9884ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:30.774::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 27.132ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:39:30.787::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 12.2373ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:39:30.787::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:39:30.824::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:30.837::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 13.2591ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:39:30.861::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 23.6366ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:30.89::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 29.3635ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449570] 0] sql ""
+2023-12-13 14:39:30.89::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process
+2023-12-13 14:39:34.103::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::logprint.go.89 logprint.InfoLog.func1:::Req Url: POST /v1/create_task,[Body]:{
+    "task_data": {
+        "user_id": "niuniu",
+        "task_id": "",
+        "task_type": "lark",
+        "task_stage": "sendmsg",
+        "status": 1,
+        "crt_retry_num": 0,
+        "max_retry_num": 0,
+        "max_retry_interval": 1,
+        "schedule_log": "",
+        "context": "{\"ReqBody\":{\"Msg\":\"nice to meet u\",\"FromAddr\":\"fish\",\"ToAddr\":\"cat\"},\"UserId\":\"\"}",
+        "order_time": 0,
+        "create_time": null,
+        "modify_time": null
+    }
+}; [Header]:{"Accept":["*/*"],"Accept-Encoding":["gzip, deflate, br"],"Cache-Control":["no-cache"],"Connection":["keep-alive"],"Content-Length":["500"],"Content-Type":["application/json"],"User-Agent":["PostmanRuntime-ApipostRuntime/1.1.0"]}
+2023-12-13 14:39:34.103::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::create_task.go.63 task.(*CreateTaskHandler).HandleProcess:::into HandleProcess
+2023-12-13 14:39:34.126::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 23.4405ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:34.149::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:54 22.7615ms SELECT * FROM `t_schedule_cfg`  WHERE (task_type = ?) LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:34.196::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:96 33.9973ms INSERT INTO `t_lark_task_5` (`user_id`,`task_id`,`task_type`,`task_stage`,`status`,`max_retry_num`,`max_retry_interval`,`task_context`,`create_time`,`modify_time`) VALUES (?,?,?,?,?,?,?,?,?,?) [niuniu ffea01e4-8d31-43fc-b943-4f78bd5809d6_lark_5 lark sendmsg 1 3 10 {"ReqBody":{"Msg":"nice to meet u","FromAddr":"fish","ToAddr":"cat"},"UserId":""} 2023-12-13 14:39:34.1625647 +0800 CST m=+84.066780701 2023-12-13 14:39:34.1625647 +0800 CST m=+84.066780701] 1] sql ""
+2023-12-13 14:39:34.228::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:96 31.9802ms SELECT `priority`, `crt_retry_num`, `schedule_log`, `order_time` FROM `t_lark_task_5`  WHERE (id = ?) [8] 1] sql ""
+2023-12-13 14:39:34.299::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::logprint.go.112 logprint.InfoLog.func1:::Url: /v1/create_task, cost 196.1147ms Resp Body {"code":0,"msg":"ok","task_id":"ffea01e4-8d31-43fc-b943-4f78bd5809d6_lark_5"}
+2023-12-13 14:39:34.299::::::INFO:::ab2d0ab7-f3e3-4f62-9ff5-89e41b6922d0:::116:::logprint.go.116 logprint.InfoLog.func1:::ReqPath[/v1/create_task]-Duration[0.1961147]
+2023-12-13 14:39:40.297::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.103 rtm.(*TaskRuntime).subTable:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:40.312::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 14.9315ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:40.325::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 12.3063ms SELECT count(*) FROM `t_lark_task_5`   [] 0] sql ""
+2023-12-13 14:39:40.325::::::INFO:::7b254d64-d777-4038-a2f8-f1aa62c833ac:::15:::rtm.go.96 rtm.(*TaskRuntime).subTable:::subTable process
+2023-12-13 14:39:40.794::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.87 rtm.(*TaskRuntime).UpdateSchedulePos:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:40.81::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:70 15.7992ms SELECT * FROM `t_schedule_pos`   [] 1] sql ""
+2023-12-13 14:39:40.843::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:170 32.8992ms SELECT count(*) FROM `t_lark_task_2`  WHERE (status in (?,?)) [4 3] 0] sql ""
+2023-12-13 14:39:40.859::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:180 16.2658ms SELECT count(*) FROM `t_lark_task_2`   [] 0] sql ""
+2023-12-13 14:39:40.859::::::INFO:::49fce5bc-d1b9-487c-9d7f-2a4e73d03adb:::16:::rtm.go.80 rtm.(*TaskRuntime).UpdateSchedulePos:::subTable process
+2023-12-13 14:39:40.903::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.117 rtm.(*TaskRuntime).dealLongTimeProcess:::schedule do dealTimeoutProcessing
+2023-12-13 14:39:40.917::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_schedule_cfg.go:65 14.0362ms SELECT * FROM `t_schedule_cfg`   [] 1] sql ""
+2023-12-13 14:39:40.956::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task_pos.go:44 39.0985ms SELECT * FROM `t_schedule_pos`  WHERE (task_type = ?) ORDER BY `t_schedule_pos`.`id` ASC LIMIT 1 [lark] 1] sql ""
+2023-12-13 14:39:40.987::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::gorm.go.90 gormcli.(*GormLogger).Print:::[sql D:/Workingggggggggggggggggg/camp_project/asyncflow-v1.0/asyncflow-v1.0/flowsvr/src/db/task.go:260 30.3265ms SELECT * FROM `t_lark_task_2`  WHERE (status = ?) AND (unix_timestamp(modify_time) + ? < ?) LIMIT 1000 [2 10 1702449580] 0] sql ""
+2023-12-13 14:39:40.987::::::INFO:::95d53139-de5d-4751-9adc-a9b2aa86b0b4:::14:::rtm.go.111 rtm.(*TaskRuntime).dealLongTimeProcess:::short task deal long time process

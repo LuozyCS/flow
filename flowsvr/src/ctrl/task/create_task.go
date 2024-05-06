@@ -1,8 +1,8 @@
 package task
 
 import (
-	"errors"
 	"fmt"
+	"github.com/niuniumart/asyncflow/flowsvr/src/cache"
 	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
 	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
 	"github.com/niuniumart/asyncflow/flowsvr/src/db"
@@ -15,7 +15,7 @@ import (
 	"github.com/niuniumart/gosdk/martlog"
 )
 
-// CreateTaskHandler 接口处理handler
+// CreateTaskHandler 创建任务
 type CreateTaskHandler struct {
 	Req    model.CreateTaskReq
 	Resp   model.CreateTaskResp
@@ -62,21 +62,16 @@ func (p *CreateTaskHandler) HandleInput() error {
 func (p *CreateTaskHandler) HandleProcess() error {
 	martlog.Infof("into HandleProcess")
 	var err error
-	var taskTableName string
 	// 拿到任务位置信息，这里其实是预先考虑了分表，将数据插入pos表中ScheduleEndPos对应的位置。
 	// 目前我们并没有实现分表，所以 ScheduleEndPos 和 ScheduleBeginPos始终都等于1
 	var taskPos *db.TaskPos
-	taskTableName = db.GetTaskTableName(p.Req.TaskData.TaskType)
-	taskPos, err = db.TaskPosNsp.GetTaskPos(db.DB, taskTableName)
+	taskPos, err = db.TaskPosNsp.GetTaskPos(db.DB, p.Req.TaskData.TaskType)
 	if err != nil {
 		p.Resp.Code = constant.ERR_GET_TASK_POS
 		martlog.Errorf("db.TaskPosNsp.GetTaskPos err: %s", err.Error())
 		return err
 	}
-	if taskPos == nil {
-		martlog.Errorf("db.TaskPosNsp.GetTaskPos failed. TaskTableName : %s", taskTableName)
-		return errors.New("Get task pos failed.  TaskTableName : " + taskTableName)
-	}
+
 	taskCfg, err := db.TaskTypeCfgNsp.GetTaskTypeCfg(db.DB, p.Req.TaskData.TaskType)
 	if err != nil {
 		p.Resp.Code = constant.ERR_GET_TASK_SET_POS_FROM_DB
@@ -89,8 +84,10 @@ func (p *CreateTaskHandler) HandleProcess() error {
 		return err
 	}
 	var task = new(db.Task)
+
+	// 使用配置表的信息(最大重试次数，以及默认最大重试时间)
 	p.Req.TaskData.MaxRetryNum = taskCfg.MaxRetryNum
-	p.Req.TaskData.MaxRetryInterval = taskCfg.MaxRetryInterval
+	p.Req.TaskData.MaxRetryInterval = taskCfg.RetryInterval
 	// 创建时的时间，就是一开始的调度顺序，调度查询时会根据orderTime由小到大排序
 	p.Req.TaskData.OrderTime = time.Now().Unix()
 	if p.Req.TaskData.Priority != nil {
@@ -103,14 +100,21 @@ func (p *CreateTaskHandler) HandleProcess() error {
 		martlog.Errorf("db.TaskPosNsp.GetTaskPos %s", err.Error())
 		return err
 	}
+
 	// 创建任务记录
 	err = db.TaskNsp.Create(db.DB, p.Req.TaskData.TaskType, scheduleEndPosStr, task)
 	if err != nil {
-		martlog.Errorf("db.TaskNsp.Create %s", err.Error())
+		martlog.Errorf("db.TaskNsp.Create DB %s", err.Error())
 		p.Resp.Code = constant.ERR_CREATE_TASK
 		return err
 	}
-	// 返回用户任务id
+	// 填充返回包
 	p.Resp.TaskId = task.TaskId
+	// 增加缓存
+	if err := cache.CreateTask(task); err != nil {
+		martlog.Errorf("db.TaskNsp.Create Cache %s", err.Error())
+		return nil
+	}
+
 	return nil
 }

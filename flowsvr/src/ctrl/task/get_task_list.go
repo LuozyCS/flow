@@ -2,13 +2,11 @@ package task
 
 import (
 	"fmt"
+	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
 	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
+	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"net/http"
-	"time"
-
-	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
-	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 
 	"github.com/niuniumart/gosdk/martlog"
 
@@ -41,6 +39,7 @@ func GetTaskList(c *gin.Context) {
 		hd.Resp.Code = constant.ERR_SHOULD_BIND
 		return
 	}
+	martlog.Errorf("GetTaskList req %+v", hd.Req)
 	martlog.Infof("GetTaskList hd.Req %s", tools.GetFmtStr(hd.Req))
 	handler.Run(&hd)
 }
@@ -48,7 +47,7 @@ func GetTaskList(c *gin.Context) {
 // HandleInput 参数检查
 func (p *GetTaskListHandler) HandleInput() error {
 	if p.Req.TaskType == "" {
-		martlog.Errorf("input invalid")
+		martlog.Errorf("input invalid %+v", p.Req)
 		p.Resp.Code = constant.ERR_INPUT_INVALID
 		return constant.ERR_HANDLE_INPUT
 	}
@@ -69,8 +68,7 @@ func (p *GetTaskListHandler) HandleProcess() error {
 	if limit == 0 {
 		limit = constant.DEFAULT_TASK_LIST_LIMIT
 	}
-	taskTableName := db.GetTaskTableName(p.Req.TaskType)
-	taskPos, err := db.TaskPosNsp.GetTaskPos(db.DB, taskTableName)
+	taskPos, err := db.TaskPosNsp.GetTaskPos(db.DB, p.Req.TaskType)
 	if err != nil {
 		martlog.Errorf("db.TaskPosNsp.GetRandomSchedulePos %s", err.Error())
 		p.Resp.Code = constant.ERR_GET_TASK_SET_POS_FROM_DB
@@ -84,11 +82,6 @@ func (p *GetTaskListHandler) HandleProcess() error {
 		return err
 	}
 	for _, dbTask := range taskList {
-		// 是重试任务，并且存在重试间隔，且还没到就排序时间，这种就过滤掉
-		if dbTask.CrtRetryNum != 0 && dbTask.MaxRetryInterval != 0 &&
-			dbTask.OrderTime > time.Now().Unix() {
-			continue
-		}
 		var task = &model.TaskData{}
 		ctrlmodel.FillTaskResp(dbTask, task)
 		p.Resp.TaskList = append(p.Resp.TaskList, task)

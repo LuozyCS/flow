@@ -1,16 +1,14 @@
 package task
 
 import (
+	"github.com/niuniumart/asyncflow/flowsvr/src/cache"
+	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
 	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
+	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"net/http"
 
-	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
-	"github.com/niuniumart/asyncflow/flowsvr/src/db"
-
 	"github.com/niuniumart/gosdk/martlog"
-
-	"github.com/niuniumart/gosdk/tools"
 
 	"github.com/gin-gonic/gin"
 	"github.com/niuniumart/gosdk/handler"
@@ -37,7 +35,6 @@ func GetTask(c *gin.Context) {
 		hd.Resp.Code = constant.ERR_SHOULD_BIND
 		return
 	}
-	martlog.Infof("GetTaskHandler Req %s", tools.GetFmtStr(hd.Req))
 	handler.Run(&hd)
 }
 
@@ -53,14 +50,39 @@ func (p *GetTaskHandler) HandleInput() error {
 
 // HandleProcess 处理函数
 func (p *GetTaskHandler) HandleProcess() error {
+	// 先从cache 拿
+	// start := time.Now()
+	cacheTaskData, err := cache.FindTaskByTaskId(p.Req.TaskId)
+	if err != nil {
+		martlog.Errorf("cache FindTaskByTaskId %s", err.Error())
+		p.Resp.Code = constant.ERR_GET_TASK_INFO
+		return err
+	}
+	// fmt.Println("cache 耗时", time.Since(start))
+
+	var task = &model.TaskData{}
+	// 找到了，回去吧
+	if cacheTaskData != nil {
+		ctrlmodel.FillTaskResp(cacheTaskData, task)
+		p.Resp.TaskData = task
+		// fmt.Println("走了缓存")
+		return nil
+	}
+	// 没找到，来DB 瞧瞧
+	// start := time.Now()
 	dbTaskData, err := db.TaskNsp.Find(db.DB, p.Req.TaskId)
 	if err != nil {
 		martlog.Errorf("db.TaskNsp.GetTask %s", err.Error())
 		p.Resp.Code = constant.ERR_GET_TASK_INFO
 		return err
 	}
-	var task = &model.TaskData{}
+	// fmt.Println("DB 耗时", time.Since(start))
+	// DB里面有，顺便更新到缓存中
+	cache.CreateTask(dbTaskData)
+
+	// 填充，返回
 	ctrlmodel.FillTaskResp(dbTaskData, task)
 	p.Resp.TaskData = task
+	// fmt.Println("走了DB")
 	return nil
 }

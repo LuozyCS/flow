@@ -25,6 +25,7 @@ type TaskScheduleCfg struct {
 	ScheduleInterval  int
 	MaxProcessingTime int64
 	MaxRetryNum       int
+	RetryInterval     int // 初始重试间隔
 	MaxRetryInterval  int
 	CreateTime        *time.Time
 	ModifyTime        *time.Time

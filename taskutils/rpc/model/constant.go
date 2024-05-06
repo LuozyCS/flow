@@ -6,12 +6,13 @@ const (
 )
 
 const (
-	GET_TASK_LIST_SUFFIX         = "/get_task_list"
-	GET_TASK_SUFFIX              = "/get_task"
-	HOLD_TASKS                   = "/hold_tasks"
-	SET_TASK_SUFFIX              = "/set_task"
-	CREATE_TASK_SUFFIX           = "/create_task"
-	GET_TASK_SCHEDULE_CFG_SUFFIX = "/get_task_schedule_cfg_list"
+	version                      = "/v1"
+	GET_TASK_LIST_SUFFIX         = version + "/get_task_list"
+	GET_TASK_SUFFIX              = version + "/get_task"
+	HOLD_TASKS                   = version + "/hold_tasks"
+	SET_TASK_SUFFIX              = version + "/set_task"
+	CREATE_TASK_SUFFIX           = version + "/create_task"
+	GET_TASK_SCHEDULE_CFG_SUFFIX = version + "/get_task_schedule_cfg_list"
 )
 
 const (

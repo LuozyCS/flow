@@ -5,7 +5,7 @@ type TaskEnum int
 const (
 	TASK_STATUS_PENDING    TaskEnum = 1
 	TASK_STATUS_PROCESSING TaskEnum = 2
-	TASK_STATUS_SUCC       TaskEnum = 3
+	TASK_STATUS_SUCCESS    TaskEnum = 3
 	TASK_STATUS_FAILED     TaskEnum = 4
 )
 
@@ -22,7 +22,7 @@ func IsValidStatus(status TaskEnum) bool {
 	if status == TASK_STATUS_PROCESSING {
 		return true
 	}
-	if status == TASK_STATUS_SUCC {
+	if status == TASK_STATUS_SUCCESS {
 		return true
 	}
 	if status == TASK_STATUS_FAILED {

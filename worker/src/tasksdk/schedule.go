@@ -1,6 +1,7 @@
 package tasksdk
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
@@ -8,6 +9,7 @@ import (
 	"github.com/niuniumart/asyncflow/taskutils/rpc"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
 	"github.com/niuniumart/gosdk/martlog"
+	"github.com/niuniumart/gosdk/redislock"
 	"github.com/niuniumart/gosdk/tools"
 	"math/rand"
 	"os"
@@ -18,30 +20,31 @@ import (
 )
 
 const (
-	DEFAULT_TIME_INTERVAL = 20 // for second
+	DEFAULT_TIME_INTERVAL = 20 // for second 20s
 )
 
 const (
 	MAX_ERR_MSG_LEN = 256
 )
 
-var taskSvrHost, lockSvrHost string //new is host: for example http://127.0.0.1:41555
+var (
+	taskSvrHost string // new is host: for example http://127.0.0.1:41555
+	lockClient  *redislock.Client
+)
 
-//InitSvr task svr host
-func InitSvr(taskServerHost, lockServerHost string) {
-	taskSvrHost, lockSvrHost = taskServerHost, lockServerHost
+// InitSvr task svr host
+func InitSvr(taskServerHost, lockServerHost, lockPassword string) {
+	taskSvrHost = taskServerHost
+	lockClient = redislock.NewClient(lockServerHost, lockPassword)
 }
 
-//TaskMgr struct short task mgr
+// TaskMgr struct short task mgr
 type TaskMgr struct {
-	InternelTime  time.Duration
+	IntervalTime  time.Duration
 	TaskType      string
 	ScheduleLimit int
 }
 
-var mu sync.RWMutex
-var MaxConcurrentRunTimes = 20
-var concurrentRunTimes = MaxConcurrentRunTimes
 var once sync.Once
 
 var scheduleCfgDic map[string]*model.TaskScheduleCfg
@@ -50,12 +53,12 @@ func init() {
 	scheduleCfgDic = make(map[string]*model.TaskScheduleCfg, 0)
 }
 
-//CycleReloadCfg func cycle reload cfg
+// CycleReloadCfg func cycle reload cfg
 func CycleReloadCfg() {
 	for {
 		now := time.Now()
-		internelTime := time.Second * DEFAULT_TIME_INTERVAL
-		next := now.Add(internelTime)
+		intervalTime := time.Second * DEFAULT_TIME_INTERVAL
+		next := now.Add(intervalTime)
 		martlog.Infof("schedule load cfg")
 		sub := next.Sub(now)
 		t := time.NewTimer(sub)
@@ -64,7 +67,7 @@ func CycleReloadCfg() {
 	}
 }
 
-//LoadCfg func load cfg
+// LoadCfg func load cfg
 func LoadCfg() error {
 	cfgList, err := taskRpc.GetTaskScheduleCfgList()
 	if err != nil {
@@ -77,16 +80,11 @@ func LoadCfg() error {
 	return nil
 }
 
-//Schedule func schedule
+// Schedule func schedule
 func (p *TaskMgr) Schedule() {
 	taskRpc.Host = taskSvrHost
 	once.Do(func() {
-		// 初始化
-		if p.ScheduleLimit != 0 {
-			martlog.Infof("init ScheduleLimit : %d", p.ScheduleLimit)
-			concurrentRunTimes = p.ScheduleLimit
-			MaxConcurrentRunTimes = p.ScheduleLimit
-		}
+		// 初始化加载任务配置信息表
 		if err := LoadCfg(); err != nil {
 			msg := "load task cfg schedule err" + err.Error()
 			martlog.Errorf(msg)
@@ -97,30 +95,28 @@ func (p *TaskMgr) Schedule() {
 			CycleReloadCfg()
 		}()
 	})
-	rand.Seed(time.Now().Unix())
 	for {
 		cfg, ok := scheduleCfgDic[p.TaskType]
 		if !ok {
 			martlog.Errorf("scheduleCfgDic %s, not have taskType %s", tools.GetFmtStr(scheduleCfgDic), p.TaskType)
 			return
 		}
-		internelTime := time.Second * time.Duration(cfg.ScheduleInterval)
+		intervalTime := time.Second * time.Duration(cfg.ScheduleInterval)
 		if cfg.ScheduleInterval == 0 {
-			internelTime = time.Second * DEFAULT_TIME_INTERVAL
+			intervalTime = time.Second * DEFAULT_TIME_INTERVAL
 		}
-		// 前后波动500ms
-		step := RandNum(500)
-		internelTime += time.Duration(step) * time.Millisecond
-		martlog.Infof("taskType %s internelTime %v", p.TaskType, internelTime)
-		fmt.Printf("taskType %s internelTime %v \n", p.TaskType, internelTime)
-		t := time.NewTimer(internelTime)
+		// 前后波动500ms[0,501)
+		step := RandNum(501)
+		// 加上波动的时间
+		intervalTime += time.Duration(step) * time.Millisecond
+		t := time.NewTimer(intervalTime)
 		<-t.C
-		martlog.Infof("schedule run %s task", p.TaskType)
+		martlog.Infof("taskType %s intervalTime %v", p.TaskType, intervalTime)
 		go func() {
 			defer func() {
 				if err := recover(); err != nil {
 					martlog.Errorf("In PanicRecover,Error:%s", err)
-					//打印调用栈信息
+					// 打印调用栈信息
 					debug.PrintStack()
 					buf := make([]byte, 2048)
 					n := runtime.Stack(buf, false)
@@ -138,7 +134,7 @@ func (p *TaskMgr) schedule() {
 	defer func() {
 		if err := recover(); err != nil {
 			martlog.Errorf("In PanicRecover,Error:%s", err)
-			//打印调用栈信息
+			// 打印调用栈信息
 			debug.PrintStack()
 			buf := make([]byte, 2048)
 			n := runtime.Stack(buf, false)
@@ -146,10 +142,23 @@ func (p *TaskMgr) schedule() {
 			martlog.Errorf("panic stack info %s\n", stackInfo)
 		}
 	}()
-	// 这里是开始抢任务，分布式锁也应该加这里
-	martlog.Infof("Start hold")
+
+	// 阻塞模式，如果没有抢到锁，就会阻塞直到抢锁成功（默认阻塞最长时间为5秒）
+	mutex := redislock.NewRedisLock(p.TaskType, lockClient, redislock.WithBlock(), redislock.WithWatchDogMode(), redislock.WithExpireSeconds(3))
+	if err := mutex.Lock(context.Background()); err != nil {
+		martlog.Errorf("RedisLock lock err %s", err.Error())
+		return // 没有抢到锁，直接返回
+	}
+
 	// 占据一批任务
 	taskIntfList, err := p.hold()
+
+	// 释放锁
+	if err := mutex.Unlock(context.Background()); err != nil {
+		martlog.Errorf("RedisLock unlock err %s", err.Error())
+		return
+	}
+
 	if err != nil {
 		martlog.Errorf("p.hold err %s", err.Error())
 		return
@@ -159,6 +168,7 @@ func (p *TaskMgr) schedule() {
 		martlog.Infof("no task to deal")
 		return
 	}
+	fmt.Println("拉取任务成功，开始执行任务......")
 	// 获取这个任务类型的配置
 	cfg, ok := scheduleCfgDic[p.TaskType]
 	if !ok {
@@ -173,7 +183,7 @@ func (p *TaskMgr) schedule() {
 			defer func() {
 				if reErr := recover(); reErr != nil {
 					martlog.Errorf("In PanicRecover,Error:%s", reErr)
-					//打印调用栈信息
+					// 打印调用栈信息
 					debug.PrintStack()
 					buf := make([]byte, 2048)
 					n := runtime.Stack(buf, false)
@@ -187,11 +197,6 @@ func (p *TaskMgr) schedule() {
 }
 
 var taskRpc rpc.TaskRpc
-var ownerId string
-
-func init() {
-	ownerId = fmt.Sprintf("%v", uuid.New())
-}
 
 // 占据任务
 func (p *TaskMgr) hold() ([]TaskIntf, error) {
@@ -237,10 +242,7 @@ func (p *TaskMgr) hold() ([]TaskIntf, error) {
 		taskIntfList = append(taskIntfList, task)
 		taskIdList = append(taskIdList, task.Base().TaskId)
 	}
-	if len(taskIdList) == 0 {
-		return taskIntfList, nil
-	}
-	martlog.Infof("TaskType len(taskIntfList) %s %d", p.TaskType, len(taskIntfList))
+
 	return taskIntfList, nil
 }
 
@@ -292,13 +294,14 @@ func run(taskInterface TaskIntf, cfg *model.TaskScheduleCfg) {
 	// 加载任务上下文
 	err := taskInterface.ContextLoad()
 	if err != nil {
-		martlog.Errorf("taskid %s reload err %s", taskInterface.Base().TaskId, err.Error())
+		martlog.Errorf("taskId %s reload err %s", taskInterface.Base().TaskId, err.Error())
 		taskInterface.Base().Status = int(constant.TASK_STATUS_PENDING)
 		return
 	}
 	beginTime := time.Now()
 	// 执行HandleProcess业务逻辑
 	err = taskInterface.HandleProcess()
+
 	// 若用户调用过SetContextLocal, 则会自动更新状态
 	// taskInterface.ScheduleSetContext()
 	// 记录调度信息
@@ -317,12 +320,32 @@ func run(taskInterface TaskIntf, cfg *model.TaskScheduleCfg) {
 	taskInterface.Base().ScheduleLog.LastData.TraceId = fmt.Sprintf("%v", uuid.New())
 	taskInterface.Base().ScheduleLog.LastData.Cost = fmt.Sprintf("%dms", cost.Milliseconds())
 	taskInterface.Base().ScheduleLog.LastData.ErrMsg = ""
-	// 计算延迟多少秒，从1,2,4....MaxRetryInterval，最大翻倍30次，再大怕溢出，同时减去优先时间
+	// 减去优先时间
 	taskInterface.Base().OrderTime = time.Now().Unix() - taskInterface.Base().Priority
 	if err != nil {
-		delayTime := cfg.MaxRetryInterval
-		// 延时加到orderTime上去
+		// 需要排除当前重试时间是不是负数，负数代表均匀重试，不需要渐进式操作
+		if taskInterface.Base().MaxRetryInterval > 0 {
+			// 计算当前重试次数对应的最大重试时间
+			if taskInterface.Base().CrtRetryNum < 30 {
+				// 每次重试时间会翻倍
+				taskInterface.Base().MaxRetryInterval = taskInterface.Base().MaxRetryInterval << 1
+			} else {
+				// 当重试次数 大于等于 30，最大重试时间 会变成 MaxRetryInterval
+				taskInterface.Base().MaxRetryInterval = cfg.MaxRetryInterval
+			}
+			// 重试时间不能超过最大重试时间
+			if taskInterface.Base().MaxRetryInterval > cfg.MaxRetryInterval {
+				taskInterface.Base().MaxRetryInterval = cfg.MaxRetryInterval
+			}
+		}
+		delayTime := taskInterface.Base().MaxRetryInterval
+		if delayTime < 0 {
+			// 防止delayTime为负数
+			delayTime = -delayTime
+		}
+		// 延时加到orderTime上去（如果需要延迟，那么优先级将会失效）
 		if delayTime != 0 {
+			// time.Now().Unix() 单位是s
 			taskInterface.Base().OrderTime = time.Now().Unix() + int64(delayTime)
 		}
 		msgLen := tools.Min(len(err.Error()), MAX_ERR_MSG_LEN)
@@ -340,10 +363,12 @@ func run(taskInterface TaskIntf, cfg *model.TaskScheduleCfg) {
 	}
 }
 
-//RandNum func for rand num
-func RandNum(num int64) int64 {
-	step := rand.Int63n(num) + int64(1)
-	flag := rand.Int63n(2)
+// RandNum func for rand num
+func RandNum(num int) int {
+	// 生成随机数[0,num)
+	step := rand.Intn(num)
+	// 50%概率为负数
+	flag := rand.Intn(2)
 	if flag == 0 {
 		return -step
 	}

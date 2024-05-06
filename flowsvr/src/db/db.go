@@ -6,8 +6,6 @@ import (
 
 	"github.com/niuniumart/asyncflow/flowsvr/src/config"
 
-	"github.com/niuniumart/gosdk/martlog"
-
 	"github.com/jinzhu/gorm"
 	"github.com/niuniumart/gosdk/gormcli"
 )
@@ -17,14 +15,27 @@ var DB *gorm.DB
 // InitDB 初始化DB
 func InitDB() error {
 	var err error
-	gormcli.Factory.IdleTimeout = 100
-	gormcli.Factory.MaxIdleConn = 1
+	gormcli.Factory = gormcli.GormFactory{
+		MaxIdleConn: config.Conf.MySQL.MaxIdleConn,
+		MaxConn:     config.Conf.MySQL.MaxConn,
+		IdleTimeout: config.Conf.MySQL.IdleTimeout,
+	}
+
 	DB, err = gormcli.Factory.CreateGorm(config.Conf.MySQL.User,
 		config.Conf.MySQL.Pwd, config.Conf.MySQL.Url, config.Conf.MySQL.Dbname)
 	if err != nil {
-		martlog.Errorf("gormcli.Factory.CreateTBassGorm err %s", err.Error())
 		return err
 	}
+
+	// 尝试发送 ping 请求
+	err = DB.DB().Ping()
+	if err != nil {
+		fmt.Println("Database connection is not available:", err)
+		return err
+	}
+
+	fmt.Println("Database connection is available")
+
 	return nil
 }
 

@@ -19,6 +19,7 @@ func FillTaskModel(sTask *model.TaskData, task *db.Task, scheduleEndPosStr strin
 		task.TaskId = db.TaskNsp.GenTaskId(sTask.TaskType, scheduleEndPosStr)
 		task.Status = int(db.TASK_STATUS_PENDING)
 	} else {
+		task.TaskId = sTask.TaskId
 		task.Status = sTask.Status
 	}
 	task.TaskType = sTask.TaskType

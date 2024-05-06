@@ -2,19 +2,16 @@ package db
 
 import (
 	"fmt"
-	"math/rand"
 	"strconv"
 	"time"
 
-	"github.com/niuniumart/gosdk/martlog"
-	"github.com/niuniumart/gosdk/tools"
-
 	"github.com/jinzhu/gorm"
+	"github.com/niuniumart/gosdk/martlog"
 )
 
 var TaskPosNsp TaskPos
 
-// TaskPos taskpos
+// TaskPos taskPos
 type TaskPos struct {
 	Id               uint64
 	TaskType         string
@@ -42,36 +39,19 @@ func (p *TaskPos) Save(db *gorm.DB, task *TaskPos) error {
 }
 
 // GetTaskPos 获取记录
-func (p *TaskPos) GetTaskPos(db *gorm.DB, taskSetName string) (*TaskPos, error) {
+func (p *TaskPos) GetTaskPos(db *gorm.DB, taskType string) (*TaskPos, error) {
 	var taskPos = new(TaskPos)
-	err := db.Table(p.TableName()).Where("task_type = ?", taskSetName).First(&taskPos).Error
+	err := db.Table(p.TableName()).Where("task_type = ?", taskType).First(&taskPos).Error
+
+	if err == gorm.ErrRecordNotFound {
+		// 没有记录，自动创建记录
+		err = db.Table(p.TableName()).Create(&TaskPos{ScheduleBeginPos: 1, ScheduleEndPos: 1, TaskType: taskType}).Error
+	}
+
 	if err != nil {
 		return nil, err
 	}
 	return taskPos, nil
-}
-
-// GetRandomSchedulePos 生成随机调度指针
-func (p *TaskPos) GetRandomSchedulePos(db *gorm.DB, taskSetName string) (int, error) {
-	taskPos, err := p.GetTaskPos(db, taskSetName)
-	if err != nil {
-		return 0, err
-	}
-	martlog.Infof("taskPos %s", tools.GetFmtStr(taskPos))
-	base := taskPos.ScheduleEndPos - taskPos.ScheduleBeginPos + 1
-	pos := rand.Intn(base) + taskPos.ScheduleBeginPos
-	martlog.Infof("random schedule pos %d", pos)
-	return int(pos), nil
-}
-
-// GetBeginSchedulePos 获取开始调度指针
-func (p *TaskPos) GetBeginSchedulePos(db *gorm.DB, taskSetName string) (int, error) {
-	taskPos, err := p.GetTaskPos(db, taskSetName)
-	if err != nil {
-		return 0, err
-	}
-	martlog.Infof("taskPos %s", tools.GetFmtStr(taskPos))
-	return int(taskPos.ScheduleBeginPos), nil
 }
 
 // GetNextPos 获取下一个调度指针

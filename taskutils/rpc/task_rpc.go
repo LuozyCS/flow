@@ -48,7 +48,7 @@ func sendRequest(client *http.Client, method, host, urlSuffix string, queryStrDi
 		errMsg := fmt.Sprintf("trigger.SendJsonRequest, [err:%s]", err)
 		return errors.New(errMsg)
 	}
-	//deal with resp
+	// deal with resp
 	if respData != nil {
 		err = json.Unmarshal(respStr, respData)
 		if err != nil {
@@ -83,8 +83,8 @@ func (p *TaskRpc) SetTask(reqBody *model.SetTaskReq) (
 // HoldTasks func for hold tasks
 func (p *TaskRpc) HoldTasks(reqBody *model.HoldTasksReq) (*model.HoldTasksResp, error) {
 	var queryStrDic = map[string]string{
-		"taskType": reqBody.TaskType,
-		"limit":    fmt.Sprintf("%d", reqBody.Limit),
+		"task_type": reqBody.TaskType,
+		"limit":     fmt.Sprintf("%d", reqBody.Limit),
 	}
 	var respData = &model.HoldTasksResp{}
 	err := sendRequest(TaskClient, http.MethodPost, p.Host, model.HOLD_TASKS,
@@ -156,7 +156,7 @@ func (p *TaskRpc) GetTaskScheduleCfgList() (*model.GetTaskScheduleCfgListResp, e
 		errMsg := fmt.Sprintf("trigger.SendJsonRequest, [err:%s]", err)
 		return respData, errors.New(errMsg)
 	}
-	//deal with resp
+	// deal with resp
 	err = json.Unmarshal(respStr, respData)
 	if err != nil {
 		errMsg := fmt.Sprintf("unmarshal resp failed, %s", err)

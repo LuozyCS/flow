@@ -1,18 +1,13 @@
 package config
 
 import (
-	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/niuniumart/gosdk/martlog"
 )
 
 var Conf *TomlConfig
-
-var (
-	TestFilePath string
-)
 
 // TomlConfig 配置
 type TomlConfig struct {
@@ -28,94 +23,93 @@ type commonConfig struct {
 }
 
 type mysqlConfig struct {
-	Url    string `toml:"url"`
-	User   string `toml:"user"`
-	Pwd    string `toml:"pwd"`
-	Dbname string `toml:"db_name"`
+	Url         string `toml:"url"`
+	User        string `toml:"user"`
+	Pwd         string `toml:"pwd"`
+	Dbname      string `toml:"db_name"`
+	MaxIdleConn int    `toml:"max_idle"`
+	MaxConn     int    `toml:"max_active"`
+	IdleTimeout int    `toml:"idle_timeout"`
 }
 
 type redisConfig struct {
-	Url                    string `toml:"url"`
-	Auth                   string `toml:"auth"`
-	MaxIdle                int    `toml:"max_idle"`
-	MaxActive              int    `toml:"max_active"`
-	IdleTimeout            int    `toml:"idle_timeout"`
-	CacheTimeout           int    `toml:"cache_timeout"`
-	CacheTimeoutVerifyCode int    `toml:"cache_timeout_verify_code"`
-	CacheTimeoutDay        int    `toml:"cache_timeout_day"`
+	Url         string `toml:"url"`
+	Auth        string `toml:"auth"`
+	MaxIdle     int    `toml:"max_idle"`
+	MaxActive   int    `toml:"max_active"`
+	IdleTimeout int    `toml:"idle_timeout"`
+	// CacheTimeout           int    `toml:"cache_timeout"`
+	// CacheTimeoutVerifyCode int    `toml:"cache_timeout_verify_code"`
+	CacheTimeoutDay int `toml:"cache_timeout_day"`
 }
 
 type TaskConfig struct {
-	TableMaxRows        int   `toml:"table_max_rows"`
-	AliveThreshold      int   `toml:"alive_threshold"`
-	SplitInterval       int   `toml:"split_interval"`
-	LongProcessInterval int   `toml:"long_process_interval"`
-	MoveInterval        int   `toml:"move_interval"`
-	MaxProcessTime      int64 `toml:"max_process_time"`
+	TableMaxRows        int   `toml:"table_max_rows"`        // 表最大行数
+	AliveThreshold      int   `toml:"alive_threshold"`       // 任务存活阈值
+	SplitInterval       int   `toml:"split_interval"`        // 分表间隔
+	LongProcessInterval int   `toml:"long_process_interval"` // 长时间处理间隔
+	MoveInterval        int   `toml:"move_interval"`         // 更新begin下标的时间间隔
+	MaxProcessTime      int64 `toml:"max_process_time"`      // 最大处理时间
 }
 
 // LoadConfig 导入配置
-func (c *TomlConfig) LoadConfig(env string) {
-	if env == "" {
-		env = "test"
-	}
+func (c *TomlConfig) LoadConfig() {
 
-	filePath := "../config/config-" + env + ".toml"
-	if TestFilePath != "" {
-		filePath = TestFilePath
-	}
-
-	if _, err := os.Stat(filePath); err != nil {
+	if _, err := os.Stat(GetConfigPath()); err != nil {
 		panic(err)
 	}
 
-	if _, err := toml.DecodeFile(filePath, &c); err != nil {
+	if _, err := toml.DecodeFile(GetConfigPath(), &c); err != nil {
 		panic(err)
 	}
-}
-
-const (
-	USAGE = "Usage: asyncflow [-e <test|prod>]"
-)
-
-// GetConfEnv 获取配置的环境变量
-func GetConfEnv() string {
-	usage := "./main {$env} "
-
-	env := os.Getenv("ENV")
-	if env == "" {
-		if len(os.Args) < 2 {
-			fmt.Println("not enough params, usage:  ", usage)
-			os.Exit(1)
-		}
-		if len(os.Args) >= 4 {
-			env = "test"
-		} else {
-			env = os.Args[1]
-		}
-	}
-
-	return env
 }
 
 func Init() {
-	//初始化配置
-	env := GetConfEnv()
-	InitConf(env)
+	// 初始化配置
+	initConf()
 }
 
 // InitConf 初始化配置
-func InitConf(env string) {
+func initConf() {
 	Conf = new(TomlConfig)
-	Conf.LoadConfig(env)
-	printLog()
+	Conf.LoadConfig()
 }
 
-func printLog() {
-	martlog.Infof("======== [Common] ========")
-	martlog.Infof("%+v", Conf.Common)
-	martlog.Infof("======== [MySQL] ========")
-	martlog.Infof("%+v", Conf.MySQL)
-	martlog.Infof("======== [Redis] ========")
-	martlog.Infof("%+v", Conf.Redis)
+// 项目主目录
+var rootDir string
+
+func GetConfigPath() string {
+	return rootDir + "/config/config.toml"
+}
+
+func init() {
+	inferRootDir()
+	// 初始化配置
+}
+
+// 推断 Root目录（copy就行）
+func inferRootDir() {
+	pwd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	var infer func(string) string
+	infer = func(dir string) string {
+		if exists(dir + "/main.go") {
+			return dir
+		}
+
+		// 查看dir的父目录
+		parent := filepath.Dir(dir)
+		return infer(parent)
+	}
+
+	rootDir = infer(pwd)
+}
+
+func exists(dir string) bool {
+	// 查找主机是不是存在 dir
+	_, err := os.Stat(dir)
+	return err == nil || os.IsExist(err)
 }
