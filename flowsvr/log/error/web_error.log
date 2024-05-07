@@ -1,0 +1,261 @@
+2024-05-07 21:01:45.032::::::ERROR:::<nil>:::100587:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_test123 _task_1' doesn't exist
+
+2024-05-07 21:01:45.035::::::ERROR:::6094c2b7-614d-46e8-9972-a7849a5fc0aa:::100587:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 100587 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x1400000f740?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x140000374e8, 0x11}, {0x10485b31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000e91680, 0x0, {0x10485b31d, 0xb}, {0x140005154d0, 0x1, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x1400042b930, {0x10485b31d, 0xb}, {0x140005154d0, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000275900)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000275900)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000275900)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x140008f53d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x1400055d478?, 0x10441da7c?, {0x1400077c0b8?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x14000243110)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x14000243110})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9
+
+
+2024-05-07 21:06:50.047::::::ERROR:::<nil>:::128618:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_test123 _task_1' doesn't exist
+
+2024-05-07 21:06:50.05::::::ERROR:::bee067ab-0955-448a-9930-99a0e45c5b87:::128618:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 128618 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x140000b8b10?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x1400040ceb8, 0x11}, {0x10485b31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000b7fe00, 0x0, {0x10485b31d, 0xb}, {0x14000537910, 0x1, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x140006bec30, {0x10485b31d, 0xb}, {0x14000537910, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000299780)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000299780)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000299780)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x140007773d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140005f3478?, 0x10441da7c?, {0x140006c9168?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x140005d5e90)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x140005d5e90})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9
+
+
+2024-05-07 21:07:11.751::::::ERROR:::<nil>:::130587:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_test123 _task_1' doesn't exist
+
+2024-05-07 21:07:11.754::::::ERROR:::23d569a8-9a74-444c-8a30-52e86b27376c:::130587:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 130587 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x140005cd8f0?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x14000037818, 0x11}, {0x10485b31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000274980, 0x0, {0x10485b31d, 0xb}, {0x14000620aa0, 0x1, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x1400046f110, {0x10485b31d, 0xb}, {0x14000620aa0, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000274880)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000274880)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000274880)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x1400063b3d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x1400071d478?, 0x10441da7c?, {0x140006887d0?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x14000290690)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x14000290690})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9
+
+
+2024-05-07 21:12:08.546::::::ERROR:::<nil>:::158598:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_test123 _task_1' doesn't exist
+
+2024-05-07 21:12:08.547::::::ERROR:::ee8758be-4379-4e74-8555-9b70c4f010b8:::158598:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 158598 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x140008962b8?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x1400040d4a0, 0x11}, {0x10485b31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000e90180, 0x0, {0x10485b31d, 0xb}, {0x14000622a60, 0x1, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x14000670410, {0x10485b31d, 0xb}, {0x14000622a60, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x140005ab100)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x140005ab100)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x140005ab100)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x140002b33d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140007b1478?, 0x10441da7c?, {0x14000706198?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x140007b7b60)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x140007b7b60})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9
+
+
+2024-05-07 21:12:25.403::::::ERROR:::<nil>:::159580:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_123 _task_1' doesn't exist
+
+2024-05-07 21:12:25.405::::::ERROR:::1014f63d-9737-4adc-bbf6-cd54a945a5a8:::159580:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 159580 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x140005cc108?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x14000905220, 0xd}, {0x1048b4a32, 0x1f})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000f0c080, 0x0, {0x1048b4a32, 0x1f}, {0x1400019c040, 0x2, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x140007b4b60, {0x1048b4a32, 0x1f}, {0x1400019c040, 0x2, 0x2})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000c84d00)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000c84d00)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000c84d00)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x140004e13d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140005f7478?, 0x10441da7c?, {0x140009051d8?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x14000123b90)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x14000123b90})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9f
+
+
+2024-05-07 21:19:57.318::::::ERROR:::<nil>:::168385:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_123 _task_1' doesn't exist
+
+2024-05-07 21:19:57.32::::::ERROR:::77cfb98c-5aab-4faa-9c5e-8b9c1a716e84:::168385:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 168385 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x104862360?, 0x1400000fda0?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x10495a278, 0x140000c09c0}, {}}}, {0x140001de3c0, 0xd}, {0x10485b31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x140005aa080, 0x0, {0x10485b31d, 0xb}, {0x140003f2660, 0x1, 0x104583aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x140003ae1a0, {0x10485b31d, 0xb}, {0x140003f2660, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000733280)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000733280)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000733280)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000c0b60?, {0x140004d13d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140002b9478?, 0x10441da7c?, {0x140001de378?, 0x1048167a0?}, {0x1047c03d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x14000b225d0)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x104956e38, 0x14000b225d0})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9b
+
+
+2024-05-07 21:26:54.983::::::ERROR:::<nil>:::66:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_123 _task_1' doesn't exist
+
+2024-05-07 21:26:54.987::::::ERROR:::07523ba4-3380-4baa-b537-0d91a846c402:::66:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 66 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x103402360?, 0x140000144e0?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x1034fa278, 0x140000164e0}, {}}}, {0x14000498b50, 0xd}, {0x1033fb31d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x140005a0900, 0x0, {0x1033fb31d, 0xb}, {0x14000033460, 0x1, 0x103123aa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x14000112d00, {0x1033fb31d, 0xb}, {0x14000033460, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x140005a0800)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x140005a0800)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x140005a0800)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140000165b0?, {0x1400021f3d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140000e1478?, 0x102fbda7c?, {0x14000498b28?, 0x1033b67a0?}, {0x1033603d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x140002475c0)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x1034f6e38, 0x140002475c0})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/ha
+
+
+2024-05-07 21:27:54.885::::::ERROR:::<nil>:::73:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_123 _task_1' doesn't exist
+
+2024-05-07 21:27:54.89::::::ERROR:::d5f13e18-c71c-4e00-a65b-5e6ced2fc370:::73:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 73 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x102b5e360?, 0x14000013110?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x102c56278, 0x14000590410}, {}}}, {0x140004506f0, 0xd}, {0x102b5731d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000227f80, 0x0, {0x102b5731d, 0xb}, {0x14000364d20, 0x1, 0x10287faa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x14000394410, {0x102b5731d, 0xb}, {0x14000364d20, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000227e80)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000227e80)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000227e80)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140005904e0?, {0x1400039f3d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140002f7478?, 0x102719a7c?, {0x140004506c8?, 0x102b127a0?}, {0x102abc3d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x1400036a4b0)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x102c52e38, 0x1400036a4b0})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/ha
+
+
+2024-05-07 21:37:06.806::::::ERROR:::<nil>:::77:::recover.go.36 gin.CreateGin.PanicRecover.func1.1:::In PanicRecover,Error:Error 1146: Table 'asyncflow.t_123 _task_1' doesn't exist
+
+2024-05-07 21:37:06.808::::::ERROR:::842d7557-dc12-4764-8788-7123b6906d7f:::77:::recover.go.49 gin.CreateGin.PanicRecover.func1.1:::panic stack info goroutine 77 [running]:
+github.com/niuniumart/gosdk/gin.CreateGin.PanicRecover.func1.1()
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/middleware/recover/recover.go:47 +0x20c
+panic({0x102b5e360?, 0x14000013620?})
+	/usr/local/go/src/runtime/panic.go:914 +0x218
+github.com/jinzhu/gorm.mysql.HasIndex({{{0x102c56278, 0x14000590410}, {}}}, {0x140004367d0, 0xd}, {0x102b5731d, 0xb})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/dialect_mysql.go:189 +0x1dc
+github.com/jinzhu/gorm.(*Scope).addIndex(0x14000227480, 0x0, {0x102b5731d, 0xb}, {0x14000221e80, 0x1, 0x10287faa0?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1216 +0x7c
+github.com/jinzhu/gorm.(*DB).AddIndex(0x14000468000, {0x102b5731d, 0xb}, {0x14000221e80, 0x1, 0x1})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:711 +0x80
+github.com/jinzhu/gorm.(*Scope).autoIndex(0x14000227300)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1316 +0x2b0
+github.com/jinzhu/gorm.(*Scope).createTable(0x14000227300)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1198 +0x4ec
+github.com/jinzhu/gorm.(*Scope).autoMigrate(0x14000227300)
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/scope.go:1269 +0xa0
+github.com/jinzhu/gorm.(*DB).AutoMigrate(0x140005904e0?, {0x140004db3d8, 0x1, 0x3?})
+	/Users/lzy/go/pkg/mod/github.com/jinzhu/gorm@v1.9.16/main.go:689 +0x68
+github.com/niuniumart/asyncflow/flowsvr/src/db.(*Task).CreateTable(0x140005d9478?, 0x102719a7c?, {0x140004367a8?, 0x102b127a0?}, {0x102abc3d0, 0x1})
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/db/task.go:83 +0x150
+github.com/niuniumart/asyncflow/flowsvr/src/ctrl/task.(*RegisterTasksHandler).HandleProcess(0x140002e1920)
+	/Users/lzy/Library/CloudStorage/OneDrive-个人/Desktop/jobs/flow/flowsvr/src/ctrl/task/register_task.go:49 +0x48
+github.com/niuniumart/gosdk/handler.Run({0x102c52e38, 0x140002e1920})
+	/Users/lzy/go/pkg/mod/github.com/niuniumart/gosdk@v0.0.0-20230802040621-c42b9c9fc9bd/ha
+
+

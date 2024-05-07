@@ -5,10 +5,10 @@ open_tls                        = false
 
 
 [MySQL]
-url                             = "192.168.5.51:3306"
+url                             = "127.0.0.1:3306"
 user                            = "root"
-pwd                             = "123456"
-db_name                         = "asyncflow"
+pwd                             = ""
+db_name                         = "Asyncflow"
 # 空闲连接
 max_idle = 2000
 # 最大连接数
@@ -17,7 +17,7 @@ max_active = 10000
 idle_timeout = 500
 
 [Redis]
-url  = "192.168.5.52:6379"
+url  = "127.0.0.1:6379"
 auth = "123456"
 # 空闲连接
 max_idle = 20
@@ -28,14 +28,14 @@ idle_timeout = 300
 #cache_timeout = 60
 #cache_timeout_verify_code = 120
 # cache_timeout_day: 缓存超时时间（以天为单位）
-cache_timeout_day = 3
+cache_timeout_day = 1
 
 
 [Task]
 # 多少行数据进行一次分割（500w）
-table_max_rows                  = 5000000
+table_max_rows                  = 50000
 # 多少秒检查进行一次分割
-split_interval                  = 30
+split_interval                  = 10
 # 多少秒检查一次长时间执行的任务
 long_process_interval           = 10
 # 多少秒检查迭代begin_pos

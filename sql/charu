@@ -1,0 +1,41 @@
+CREATE DEFINER=`root`@`%` PROCEDURE `InsertRecordsTable`(IN total_records INT, IN task_type_param VARCHAR(128), IN pos INT)
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE user_id_val VARCHAR(256);
+    DECLARE task_id_val VARCHAR(256);
+    DECLARE task_type_val VARCHAR(128);
+    DECLARE task_stage_val VARCHAR(128);
+    DECLARE status_val TINYINT;
+    DECLARE priority_val INT;
+    DECLARE crt_retry_num_val INT;
+    DECLARE max_retry_num_val INT;
+    DECLARE max_retry_interval_val INT;
+    DECLARE schedule_log_val VARCHAR(4096);
+    DECLARE task_context_val VARCHAR(8192);
+    DECLARE order_time_val INT;
+    DECLARE create_time_val DATETIME;
+    DECLARE modify_time_val DATETIME;
+
+    WHILE i < total_records DO
+        SET user_id_val = 'niuniu';
+        SET task_type_val = task_type_param;
+        SET task_stage_val = 'sendmsg';
+        SET status_val = 1 + RAND() * 3; -- Generates a random value between 1 and 4.
+        SET priority_val = i % 100;
+        SET crt_retry_num_val = IF(status_val = 4, 3, 0); -- If status is 4, set crt_retry_num to 3, otherwise set to 0.
+        SET max_retry_num_val = 3;
+        SET max_retry_interval_val = i % 60;
+        SET schedule_log_val = '';
+        SET task_context_val = '{"ReqBody":{"Msg":"nice to meet u","FromAddr":"fish","ToAddr":"cat"},"UserId":""}';
+        SET order_time_val = UNIX_TIMESTAMP(NOW());
+        SET create_time_val = NOW();
+        SET modify_time_val = NOW();
+
+        SET task_id_val = CONCAT(UUID(), '_', task_type_val, '_', pos); -- Generates a task_id using UUID + task_type + pos.
+
+        INSERT INTO t_lark_task_1 (user_id, task_id, task_type, task_stage, status, priority, crt_retry_num, max_retry_num, max_retry_interval, schedule_log, task_context, order_time, create_time, modify_time)
+        VALUES (user_id_val, task_id_val, task_type_val, task_stage_val, status_val, priority_val, crt_retry_num_val, max_retry_num_val, max_retry_interval_val, schedule_log_val, task_context_val, order_time_val, create_time_val, modify_time_val);
+
+        SET i = i + 1;
+    END WHILE;
+END
