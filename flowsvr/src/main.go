@@ -2,6 +2,7 @@
 
 import (
 	"fmt"
+
 	"github.com/niuniumart/asyncflow/flowsvr/src/config"
 	"github.com/niuniumart/asyncflow/flowsvr/src/initialize"
 	"github.com/niuniumart/asyncflow/flowsvr/src/rtm"
@@ -18,7 +19,7 @@ func main() {
 	var rtm rtm.TaskRuntime
 	rtm.Run()
 	// 创建一个web服务
-	router := gin.CreateGin()
+	router := gin.CreateGin() // 调库的
 	// 这里跳进去就能看到有哪些接口
 	initialize.RegisterRouter(router)
 	fmt.Println("before router run")

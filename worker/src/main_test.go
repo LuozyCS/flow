@@ -4,6 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sync"
+	"testing"
+
 	"github.com/niuniumart/asyncflow/flowsvr/src/config"
 	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 	"github.com/niuniumart/asyncflow/taskutils/rpc"
@@ -11,9 +14,9 @@ import (
 	"github.com/niuniumart/gosdk/redislock"
 	"github.com/niuniumart/gosdk/tools"
 	"github.com/smartystreets/goconvey/convey"
-	"sync"
-	"testing"
 )
+
+// import testing 就可以使用testing.T，从而进行测试代码编写
 
 // TestCreateTask 测试创建任务接口
 func TestCreateTask(t *testing.T) {

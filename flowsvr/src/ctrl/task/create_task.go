@@ -2,13 +2,14 @@ package task
 
 import (
 	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/niuniumart/asyncflow/flowsvr/src/cache"
 	"github.com/niuniumart/asyncflow/flowsvr/src/constant"
 	"github.com/niuniumart/asyncflow/flowsvr/src/ctrl/ctrlmodel"
 	"github.com/niuniumart/asyncflow/flowsvr/src/db"
 	"github.com/niuniumart/asyncflow/taskutils/rpc/model"
-	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/niuniumart/gosdk/handler"
@@ -63,7 +64,7 @@ func (p *CreateTaskHandler) HandleProcess() error {
 	martlog.Infof("into HandleProcess")
 	var err error
 	// 拿到任务位置信息，这里其实是预先考虑了分表，将数据插入pos表中ScheduleEndPos对应的位置。
-	// 目前我们并没有实现分表，所以 ScheduleEndPos 和 ScheduleBeginPos始终都等于1
+	// 目前没有实现分表，所以 ScheduleEndPos 和 ScheduleBeginPos始终都等于1
 	var taskPos *db.TaskPos
 	taskPos, err = db.TaskPosNsp.GetTaskPos(db.DB, p.Req.TaskData.TaskType)
 	if err != nil {
@@ -91,6 +92,7 @@ func (p *CreateTaskHandler) HandleProcess() error {
 	// 创建时的时间，就是一开始的调度顺序，调度查询时会根据orderTime由小到大排序
 	p.Req.TaskData.OrderTime = time.Now().Unix()
 	if p.Req.TaskData.Priority != nil {
+		// 刚开始时，优先级越高，orderTime越小，要减去
 		p.Req.TaskData.OrderTime -= int64(*p.Req.TaskData.Priority)
 	}
 	// 填充了任务信息
